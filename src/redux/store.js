@@ -13,8 +13,12 @@ import {
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage';
 
+import campersReducer from "./campers/slice";
+
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    campers: campersReducer
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
