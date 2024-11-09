@@ -1,11 +1,13 @@
 .appBar {
+  background: #f7f7f7;
+  border-bottom: 1px solid #f2f4f7;
+  padding: 24px 0;
+  height: 72px;
+}
+
+.headerContainer {
+  position: relative;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  height: 80px;
-  border-bottom: 2px solid #000;
-  gap: 60px;
-  padding: 0 30px;
-  max-width: 1920px;
-  margin: 0 auto;
+  justify-content: space-between;
 }
