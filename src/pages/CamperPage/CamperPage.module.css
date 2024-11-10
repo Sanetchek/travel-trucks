@@ -1,5 +1,5 @@
 .container {
-  padding: 48px 80px;
+  padding: 48px 0 80px;
 }
 
 .title {
@@ -133,4 +133,25 @@
   font-size: 16px;
   line-height: 1.5;
   color: #6c717b;
+}
+
+@media screen and (max-width: 992px) {
+  .galleryImgWrap {
+    width: calc((100% - 48px) / 2);
+  }
+
+  .footer {
+    flex-direction: column;
+  }
+
+  .camperInfo,
+  .camperForm {
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .galleryImgWrap {
+    width: 100%;
+  }
 }

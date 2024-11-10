@@ -12,7 +12,6 @@ const slice = createSlice({
     totalItems: null,
     items: [],
     camper: {},
-    filters: {},
     loading: false,
     error: null,
   },
@@ -27,9 +26,9 @@ const slice = createSlice({
         state.items = action.payload.items;
         state.loading = false;
       })
-      .addCase(getCampers.rejected, (state, action) => {
+      .addCase(getCampers.rejected, (state) => {
         state.loading = false;
-        state.error = action.payload; // Set error message
+        state.error =true;
       })
       .addCase(getCampersById.pending, (state) => {
         state.loading = true;
@@ -39,9 +38,9 @@ const slice = createSlice({
         state.camper = action.payload;
         state.loading = false;
       })
-      .addCase(getCampersById.rejected, (state, action) => {
+      .addCase(getCampersById.rejected, (state) => {
         state.loading = false;
-        state.error = action.payload; // Set error message
+        state.error = true;
       });
   },
 });
