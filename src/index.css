@@ -111,6 +111,10 @@ button.btn-transparent,
   border: 1px solid #d84343;
 }
 
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
 button.react-datepicker__navigation:hover {
   background: transparent;
 }
