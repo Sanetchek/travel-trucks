@@ -5,7 +5,6 @@
   transform: translate(-50%, -50%);
   display: flex;
   justify-content: space-around;
-  padding: 10px;
   gap: 16px;
 }
 
@@ -20,4 +19,14 @@
 
 .active {
   color: #d84343;
+}
+
+
+@media screen and (max-width: 768px) {
+  .nav {
+    position: relative;
+    top: unset;
+    left: unset;
+    transform: none;
+  }
 }

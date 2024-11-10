@@ -9,7 +9,8 @@ import {
 const slice = createSlice({
   name: 'campers',
   initialState: {
-    items: {},
+    totalItems: null,
+    items: [],
     camper: {},
     filters: {},
     loading: false,
@@ -22,6 +23,7 @@ const slice = createSlice({
         state.error = null;
       })
       .addCase(getCampers.fulfilled, (state, action) => {
+        state.totalItems = action.payload.total;
         state.items = action.payload.items;
         state.loading = false;
       })

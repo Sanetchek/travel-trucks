@@ -1,6 +1,8 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { getCampers } from "../../redux/campers/operations";
 
 import Layout from "../Layout/Layout";
 import Loading from "../Loading/Loading";
@@ -13,6 +15,11 @@ const NotFoundPage = lazy(() =>
 );
 
 export default function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCampers());
+  }, [dispatch]);
   return (
     <Layout>
       <Suspense fallback={<Loading />}>
