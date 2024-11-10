@@ -14,6 +14,7 @@ import snippets from "../../assets/images/snippets.svg";
 import Loading from "../../components/Loading/Loading";
 import ModalImage from "react-modal-image";
 import clsx from "clsx";
+import ContactForm from "../../components/ContactForm/ContactForm";
 
 export default function CamperPage() {
   const { camperId } = useParams();
@@ -113,12 +114,20 @@ export default function CamperPage() {
             <Outlet context={{ camper }} />
           </div>
 
-          <div className={css.camperForm}></div>
+          <div className={css.camperForm}>
+            <h2 className={css.formTitle}>Book your campervan now</h2>
+            <p className={css.formDescription}>
+              Stay connected! We are always ready to help you.
+            </p>
+            <ContactForm />
+          </div>
         </div>
       </div>
     </div>
   );
 }
+
+
 
 
 

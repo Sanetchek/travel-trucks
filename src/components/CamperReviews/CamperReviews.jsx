@@ -11,7 +11,6 @@ export default function CamperReviews() {
     return <div>No camper details available</div>;
   }
 
-  console.log(camper);
   const reviews = camper.reviews || [];
 
   return (

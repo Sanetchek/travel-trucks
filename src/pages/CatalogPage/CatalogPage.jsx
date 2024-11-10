@@ -24,8 +24,6 @@ export default function CatalogPage() {
   };
 
   const handleFilter = (value) => {
-    console.log(value);
-
     dispatch(getCampers(value));
   }
 

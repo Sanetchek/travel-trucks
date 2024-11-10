@@ -34,7 +34,9 @@ h1 {
   line-height: 1.1;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="email"],
+textarea {
   background: #f7f7f7;
   border-radius: 12px;
   border: 0;
@@ -45,6 +47,10 @@ input[type="text"] {
   font-size: 16px;
   line-height: 1.5;
   color: #101828;
+}
+
+textarea {
+  height: 118px;
 }
 
 input::placeholder {
@@ -103,6 +109,10 @@ button.btn-transparent,
 
 .btn-transparent:hover {
   border: 1px solid #d84343;
+}
+
+.react-datepicker-wrapper {
+  width: 100%;
 }
 
 .mainContainer {
