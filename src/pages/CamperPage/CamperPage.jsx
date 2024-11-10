@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink, Link, useParams, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCampersById } from "../../redux/campers/operations";
@@ -30,6 +30,9 @@ export default function CamperPage() {
     }
   }, [camperId, dispatch]);
 
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   if (loading) {
     return <Loading />;
   }
@@ -50,6 +53,31 @@ export default function CamperPage() {
 
   const buildLinkClass = ({ isActive }) => {
     return clsx(css.link, isActive && css.active);
+  };
+
+  // Navigate to the next image
+  const nextImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === gallery.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  // Navigate to the previous image
+  const prevImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === 0 ? gallery.length - 1 : prevIndex - 1
+    );
+  };
+
+  // Open the modal with the clicked image
+  const openModal = (index) => {
+    setCurrentImageIndex(index);
+    setIsModalOpen(true);
+  };
+
+  // Close the modal
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -80,17 +108,43 @@ export default function CamperPage() {
         <div className={css.gallery}>
           {gallery.length > 0 &&
             gallery.map((image, index) => (
-              <div key={index} className={css.galleryImgWrap}>
-                <ModalImage
+              <div
+                key={index}
+                className={css.galleryImgWrap}
+                onClick={() => openModal(index)} // Open modal when image is clicked
+              >
+                <img
                   className={css.galleryImg}
-                  small={image.thumb}
-                  large={image.original}
+                  src={image.thumb}
                   alt={`Gallery Image ${index + 1}`}
-                  hideDownload={true} // Optional: hides the download button
                 />
               </div>
             ))}
         </div>
+
+        {/* Modal with sliding images */}
+        {isModalOpen && (
+          <div className={css.modalBackdrop} onClick={closeModal}>
+            <div
+              className={css.modalContent}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button className={css.prevArrow} onClick={prevImage}>
+                &#10094;
+              </button>
+              <ModalImage
+                className={css.modalImage}
+                small={gallery[currentImageIndex].thumb}
+                large={gallery[currentImageIndex].original}
+                alt={`Gallery Image ${currentImageIndex + 1}`}
+                hideDownload={true}
+              />
+              <button className={css.nextArrow} onClick={nextImage}>
+                &#10095;
+              </button>
+            </div>
+          </div>
+        )}
 
         <p className={css.description}>{camper.description}</p>
 
@@ -126,20 +180,3 @@ export default function CamperPage() {
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
