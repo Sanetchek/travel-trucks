@@ -74,3 +74,48 @@
   line-height: 1.5;
   color: #475467;
 }
+
+.nav {
+  height: 48px;
+  display: flex;
+  gap: 40px;
+  border-bottom: 1px solid #dadde1;
+  margin-bottom: 44px;
+}
+
+.link {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.2;
+  color: #101828;
+  text-decoration: none;
+  position: relative;
+}
+
+.link.active::after {
+  content: '';
+  display: block;
+  height: 5px;
+  width: 100%;
+  background-color: #e44848;
+  position: absolute;
+  bottom: -3px;
+}
+
+.footer {
+  display: flex;
+  gap: 40px;
+}
+
+.camperInfo {
+  max-width: 631px;
+  width: 100%;
+}
+
+.camperForm {
+  max-width: 641px;
+  width: 100%;
+  padding: 44px;
+  border: 1px solid #dadde1;
+  border-radius: 10px;
+}

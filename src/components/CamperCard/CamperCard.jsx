@@ -77,10 +77,11 @@ export default function CamperCard({ camper }) {
 
         <Features camper={camper} />
 
-        <NavLink to={`/catalog/${camper.id}`} className="btn">
+        <NavLink to={`/catalog/${camper.id}/features`} className="btn">
           Show more
         </NavLink>
       </div>
     </div>
   );
 }
+

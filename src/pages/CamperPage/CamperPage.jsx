@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { NavLink, Link, useParams, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCampersById } from "../../redux/campers/operations";
 import {
@@ -13,6 +13,7 @@ import snippets from "../../assets/images/snippets.svg";
 
 import Loading from "../../components/Loading/Loading";
 import ModalImage from "react-modal-image";
+import clsx from "clsx";
 
 export default function CamperPage() {
   const { camperId } = useParams();
@@ -46,6 +47,10 @@ export default function CamperPage() {
     camper.gallery && Array.isArray(camper.gallery) ? camper.gallery : [];
   const formattedPrice = camper.price ? camper.price.toFixed(2) : "N/A";
 
+  const buildLinkClass = ({ isActive }) => {
+    return clsx(css.link, isActive && css.active);
+  };
+
   return (
     <div className={css.container}>
       <div className="mainContainer">
@@ -55,7 +60,9 @@ export default function CamperPage() {
             <svg className={css.iconStar} width="16" height="16">
               <use href={`${snippets}#icon-star`}></use>
             </svg>
-            {camper.rating} ({reviewsCount} Reviews)
+            <Link to={`/catalog/${camperId}/reviews`}>
+              {camper.rating} ({reviewsCount} Reviews)
+            </Link>
           </span>
           <span className={css.location}>
             <svg className={css.iconMap} width="16" height="16">
@@ -85,9 +92,45 @@ export default function CamperPage() {
         </div>
 
         <p className={css.description}>{camper.description}</p>
+
+        <nav className={css.nav}>
+          <NavLink
+            to={`/catalog/${camperId}/features`}
+            className={buildLinkClass}
+          >
+            Features
+          </NavLink>
+          <NavLink
+            to={`/catalog/${camperId}/reviews`}
+            className={buildLinkClass}
+          >
+            Reviews
+          </NavLink>
+        </nav>
+
+        <div className={css.footer}>
+          <div className={css.camperInfo}>
+            <Outlet context={{ camper }} />
+          </div>
+
+          <div className={css.camperForm}></div>
+        </div>
       </div>
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
