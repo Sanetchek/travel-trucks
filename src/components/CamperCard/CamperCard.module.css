@@ -54,11 +54,15 @@
   margin: 0;
 }
 
+.like {
+  cursor: pointer;
+}
+
 .iconHeart {
   fill: #101828;
 }
 
-.iconHeart.active {
+.iconHeart.favorited {
   fill: #e44848;
 }
 
@@ -89,4 +93,15 @@
   line-height: 1.5;
   color: #475467;
   margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .image,
+  .content {
+    width: 100%;
+  }
 }

@@ -1,86 +1,149 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import css from "./CatalogFilter.module.css";
+import snippets from "../../assets/images/snippets.svg";
+import clsx from "clsx";
 
 export default function CatalogFilter({ onSubmitForm }) {
+  const fullyIntegratedClasses = clsx(css.fieldBlock, css.minPadding);
+
+  const Checkbox = ({ name, label, icon }) => (
+    <label className={css.equipment}>
+      <Field type="checkbox" name={name} className={css.eqField} />
+      <span className={css.fieldBlock}>
+        <svg className={css.blockIcon} width="32" height="32">
+          <use href={`${snippets}#${icon}`}></use>
+        </svg>
+        <span className={css.blockName}>{label}</span>
+      </span>
+    </label>
+  );
+
+  const RadioButton = ({ name, value, label, icon, additionalClasses }) => (
+    <label className={css.type}>
+      <Field type="radio" name={name} value={value} className={css.typeField} />
+      <span className={additionalClasses || css.fieldBlock}>
+        <svg className={css.blockIcon} width="32" height="32">
+          <use href={`${snippets}#${icon}`}></use>
+        </svg>
+        <span className={css.blockName}>{label}</span>
+      </span>
+    </label>
+  );
+
+  const cleanObject = (obj) => {
+    let cleanedObj = { ...obj };
+
+    if (cleanedObj.automatic === true) {
+      delete cleanedObj.automatic;
+      cleanedObj.transmission = "automatic";
+    }
+
+    cleanedObj = Object.fromEntries(
+      Object.entries(cleanedObj).filter(
+        ([_, v]) => v !== false && v !== ""
+      )
+    );
+
+    return cleanedObj;
+  };
+
   return (
     <Formik
       initialValues={{
         location: "",
-        features: {
-          airConditioning: false,
-          kitchen: false,
-          bathroom: false
-          // Add other criteria as needed
-        },
-        bodyType: ""
+        ac: false,
+        kitchen: false,
+        bathroom: false,
+        tv: false,
+        automatic: false,
+        form: ""
       }}
       onSubmit={(values) => {
-        onSubmitForm(values);
+        const cleanedValues = cleanObject(values);
+        onSubmitForm(cleanedValues);
       }}
     >
       {({ values }) => (
         <Form className={css.filterForm}>
-          {/* Location Field */}
           <div className={css.formGroup}>
-            <label htmlFor="location">Location:</label>
-            <Field
-              type="text"
-              id="location"
-              name="location"
-              placeholder="Enter location"
-              className={css.input}
-            />
+            <label htmlFor="location">
+              <span className={css.label}>Location:</span>
+              <div className={css.inputWrapper}>
+                <svg
+                  className={`${css.icon} ${
+                    values.location ? css.iconFilled : ""
+                  }`}
+                  width="20"
+                  height="20"
+                >
+                  <use href={`${snippets}#icon-map`}></use>
+                </svg>
+                <Field
+                  type="text"
+                  id="location"
+                  name="location"
+                  placeholder="City"
+                  className={css.inputLocation}
+                />
+              </div>
+            </label>
           </div>
 
-          {/* Multiple Criteria Checkboxes */}
+          <div className={css.filterName}>Filter</div>
+
           <div className={css.formGroup}>
-            <label>Features:</label>
+            <h2 className={css.filterLabel}>Vehicle equipment</h2>
             <div className={css.checkboxGroup}>
-              <label>
-                <Field type="checkbox" name="features.airConditioning" />
-                Air Conditioning
-              </label>
-              <label>
-                <Field type="checkbox" name="features.kitchen" />
-                Kitchen
-              </label>
-              <label>
-                <Field type="checkbox" name="features.bathroom" />
-                Bathroom
-              </label>
-              {/* Add other features checkboxes here */}
+              <Checkbox name="ac" label="AC" icon="icon-wind" />
+              <Checkbox name="automatic" label="Automatic" icon="icon-diagram" />
+              <Checkbox name="kitchen" label="Kitchen" icon="icon-cup-hot" />
+              <Checkbox name="tv" label="TV" icon="icon-tv" />
+              <Checkbox name="bathroom" label="Bathroom" icon="icon-shower" />
             </div>
           </div>
 
-          {/* Body Type Radio Buttons */}
           <div className={css.formGroup}>
-            <label>Body Type:</label>
+            <h2 className={css.filterLabel}>Vehicle type</h2>
             <div className={css.radioGroup}>
-              <label>
-                <Field type="radio" name="bodyType" value="van" />
-                Van
-              </label>
-              <label>
-                <Field type="radio" name="bodyType" value="truck" />
-                Truck
-              </label>
-              <label>
-                <Field type="radio" name="bodyType" value="suv" />
-                SUV
-              </label>
-              {/* Add other body types as needed */}
+              <RadioButton
+                name="form"
+                value="panelTruck"
+                label="Van"
+                icon="icon-grid2"
+              />
+              <RadioButton
+                name="form"
+                value="fullyIntegrated"
+                label="Fully Integrated"
+                icon="icon-grid"
+                additionalClasses={fullyIntegratedClasses}
+              />
+              <RadioButton
+                name="form"
+                value="alcove"
+                label="Alcove"
+                icon="icon-grid3"
+              />
             </div>
           </div>
 
-          {/* Submit Button */}
           <button type="submit" className={css.submitButton}>
-            Apply Filters
+            Search
           </button>
         </Form>
       )}
     </Formik>
   );
 }
+
+
+
+
+
+
+
+
+
 
 

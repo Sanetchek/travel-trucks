@@ -1,10 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import css from "./CamperCard.module.css";
 import snippets from "../../assets/images/snippets.svg";
 import Features from "../Features/Features";
 import { NavLink } from "react-router-dom";
 
 export default function CamperCard({ camper }) {
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    const isInFavorites = favorites.some((fav) => fav.id === camper.id);
+    setIsFavorite(isInFavorites);
+  }, [camper.id]);
+
+  const toggleFavorite = () => {
+    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+    if (isFavorite) {
+      const updatedFavorites = favorites.filter((fav) => fav.id !== camper.id);
+      localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+    } else {
+      favorites.push(camper);
+      localStorage.setItem("favorites", JSON.stringify(favorites));
+    }
+
+    setIsFavorite(!isFavorite);
+  };
+
   const thumb = camper.gallery[0].original;
   const reviewsCount = camper.reviews.length;
 
@@ -21,8 +43,14 @@ export default function CamperCard({ camper }) {
           <div className={css.price}>
             <span className={css.priceValue}>€{camper.price.toFixed(2)}</span>
 
-            <span className={css.like}>
-              <svg className={css.iconHeart} width="24" height="21">
+            <span className={css.like} onClick={toggleFavorite}>
+              <svg
+                className={`${css.iconHeart} ${
+                  isFavorite ? css.favorited : ""
+                }`}
+                width="24"
+                height="21"
+              >
                 <use href={`${snippets}#icon-heart`}></use>
               </svg>
             </span>
@@ -55,31 +83,4 @@ export default function CamperCard({ camper }) {
       </div>
     </div>
   );
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}

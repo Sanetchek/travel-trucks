@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import css from "./CatalogPage.module.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getCampers } from "../../redux/campers/operations";
 import {
   selectAllCampers,
   selectTotalCampers
@@ -12,6 +13,7 @@ import clsx from "clsx";
 export default function CatalogPage() {
   const campersTotal = useSelector(selectTotalCampers);
   const camperList = useSelector(selectAllCampers);
+  const dispatch = useDispatch();
 
   const [visibleCount, setVisibleCount] = useState(4);
 
@@ -21,12 +23,18 @@ export default function CatalogPage() {
     setVisibleCount((prevCount) => prevCount + 4);
   };
 
+  const handleFilter = (value) => {
+    console.log(value);
+
+    dispatch(getCampers(value));
+  }
+
   return (
     <div className={css.catalog}>
       <div className="mainContainer">
         <div className={css.container}>
           <div className={css.filter}>
-            <CatalogFilter />
+            <CatalogFilter onSubmitForm={handleFilter} />
           </div>
 
           <div className={css.content}>
@@ -48,6 +56,11 @@ export default function CatalogPage() {
     </div>
   );
 }
+
+
+
+
+
 
 
 

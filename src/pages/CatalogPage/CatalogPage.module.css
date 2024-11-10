@@ -23,3 +23,14 @@
 .loadMore {
   margin: 40px auto 0;
 }
+
+@media screen and (max-width: 1440px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .filter,
+  .content {
+    width: 100%;
+  }
+}
