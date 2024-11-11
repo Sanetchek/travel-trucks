@@ -3,6 +3,7 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { toast } from "react-hot-toast";
 
 import css from "./ContactForm.module.css";
 
@@ -25,8 +26,10 @@ const initialValues = {
   comment: ""
 };
 
-const onSubmit = (values) => {
+const onSubmit = (values, { resetForm }) => {
   console.log(values);
+  toast.success("Message sent successfully!");
+  resetForm();
 };
 
 export default function ContactForm() {
@@ -92,6 +95,8 @@ export default function ContactForm() {
     </Formik>
   );
 }
+
+
 
 
 
