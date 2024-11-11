@@ -11,7 +11,7 @@ const slice = createSlice({
   initialState: {
     totalItems: null,
     items: [],
-    camper: {},
+    camper: null,
     loading: false,
     error: null,
   },
@@ -20,25 +20,28 @@ const slice = createSlice({
       .addCase(getCampers.pending, (state) => {
         state.loading = true;
         state.error = null;
+        state.items = [];
+        state.totalItems = null;
       })
       .addCase(getCampers.fulfilled, (state, action) => {
         state.totalItems = action.payload.total;
         state.items = action.payload.items;
         state.loading = false;
       })
-      .addCase(getCampers.rejected, (state) => {
+      .addCase(getCampers.rejected, (state, action) => {
         state.loading = false;
-        state.error =true;
+        state.error = true;
       })
       .addCase(getCampersById.pending, (state) => {
         state.loading = true;
         state.error = null;
+        state.camper = null;
       })
       .addCase(getCampersById.fulfilled, (state, action) => {
         state.camper = action.payload;
         state.loading = false;
       })
-      .addCase(getCampersById.rejected, (state) => {
+      .addCase(getCampersById.rejected, (state, action) => {
         state.loading = false;
         state.error = true;
       });

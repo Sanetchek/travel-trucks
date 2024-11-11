@@ -52,10 +52,10 @@ export default function CatalogFilter({ onSubmitForm }) {
     <Formik
       initialValues={{
         location: "",
-        ac: false,
+        AC: false,
         kitchen: false,
         bathroom: false,
-        tv: false,
+        TV: false,
         automatic: false,
         form: ""
       }}
@@ -95,10 +95,10 @@ export default function CatalogFilter({ onSubmitForm }) {
           <div className={css.formGroup}>
             <h2 className={css.filterLabel}>Vehicle equipment</h2>
             <div className={css.checkboxGroup}>
-              <Checkbox name="ac" label="AC" icon="icon-wind" />
+              <Checkbox name="AC" label="AC" icon="icon-wind" />
               <Checkbox name="automatic" label="Automatic" icon="icon-diagram" />
               <Checkbox name="kitchen" label="Kitchen" icon="icon-cup-hot" />
-              <Checkbox name="tv" label="TV" icon="icon-tv" />
+              <Checkbox name="TV" label="TV" icon="icon-tv" />
               <Checkbox name="bathroom" label="Bathroom" icon="icon-shower" />
             </div>
           </div>
