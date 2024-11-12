@@ -67,10 +67,10 @@ The project is deployed on Vercel or Netlify. Access the live version via the pr
 
 ## File Structure
 src/
-├── assets/            # Assets
-├── components/        # Reusable UI components
-├── pages/             # Page components for routing
-├── redux/             # State slices for Redux
+ - assets/            # Assets
+ - components/        # Reusable UI components
+ - pages/             # Page components for routing
+ - redux/             # State slices for Redux
 
 ## Development Best Practices
  - Clean and readable code with comments where necessary.
